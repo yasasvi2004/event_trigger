@@ -2,17 +2,20 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_swagger_ui import get_swaggerui_blueprint
 import logging
+from dotenv import load_dotenv
 from .extensions import db, scheduler  # Import db and scheduler from extensions.py
+import os
 
 # Initialize migrate
 migrate = Migrate()
+load_dotenv()
 
 def create_app():
     # Create the Flask app
     app = Flask(__name__, static_folder='static')
 
     # Load configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://event_trigger_db_user:QZDwB0qVV33h0QPvHR11KbED7zIWfiBT@dpg-cv96ip52ng1s73d0mfcg-a.oregon-postgres.render.com/event_trigger_db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Initialize extensions with the app
