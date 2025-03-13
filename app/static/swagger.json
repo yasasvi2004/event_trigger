@@ -1,0 +1,61 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Event Trigger Platform",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/triggers": {
+      "post": {
+        "summary": "Create a new trigger",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {"type": "string"},
+                  "details": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Trigger created"
+          }
+        }
+      }
+    },
+    "/triggers/{trigger_id}/trigger": {
+      "post": {
+        "summary": "Trigger an event",
+        "parameters": [
+          {
+            "name": "trigger_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event triggered"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "summary": "Get events",
+        "responses": {
+          "200": {
+            "description": "List of events"
+          }
+        }
+      }
+    }
+}}
