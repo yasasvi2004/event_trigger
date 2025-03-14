@@ -13,7 +13,7 @@ def add_scheduled_trigger(app, trigger_id, details):
     logging.info(f"Scheduling trigger for {trigger_id} with details: {details}")
     try:
         if 'time' in details:
-            # One-time trigger
+            logging.info(f"Adding one-time trigger for {trigger_id} at {details['time']}")
             scheduler.add_job(
                 trigger_scheduled_event,
                 'date',
@@ -21,16 +21,16 @@ def add_scheduled_trigger(app, trigger_id, details):
                 args=[app, trigger_id]
             )
         elif 'interval' in details:
-            # Recurring trigger
             recurring = details.get('recurring', False)
             if recurring:
+                logging.info(f"Adding recurring trigger for {trigger_id} with interval {details['interval']} minutes")
                 scheduler.add_job(
                     trigger_scheduled_event,
                     IntervalTrigger(minutes=details['interval']),
                     args=[app, trigger_id]
                 )
             else:
-                # One-time trigger with delay
+                logging.info(f"Adding one-time trigger for {trigger_id} with delay of {details['interval']} minutes")
                 scheduler.add_job(
                     trigger_scheduled_event,
                     'date',
@@ -51,4 +51,3 @@ def trigger_scheduled_event(app, trigger_id):
             logging.info("Event logged successfully.")
     except Exception as e:
         logging.error(f"Error executing scheduled event for trigger_id {trigger_id}: {e}")
-scheduler.start()
