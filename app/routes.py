@@ -47,3 +47,4 @@ def get_events():
         'payload': event.payload,
         'is_test': event.is_test
     } for event in events]), 200
+
