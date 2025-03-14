@@ -2,17 +2,41 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from .extensions import db  # Import db from extensions.py
 from .models import EventLog  # Import EventLog from models.py
 import logging
+from datetime import datetime, timedelta
 
 # Initialize the scheduler
 scheduler = BackgroundScheduler()
+
+from apscheduler.triggers.interval import IntervalTrigger
 
 def add_scheduled_trigger(app, trigger_id, details):
     logging.info(f"Scheduling trigger for {trigger_id} with details: {details}")
     try:
         if 'time' in details:
-            scheduler.add_job(trigger_scheduled_event, 'date', run_date=details['time'], args=[app, trigger_id])
+            # One-time trigger
+            scheduler.add_job(
+                trigger_scheduled_event,
+                'date',
+                run_date=details['time'],
+                args=[app, trigger_id]
+            )
         elif 'interval' in details:
-            scheduler.add_job(trigger_scheduled_event, 'interval', minutes=details['interval'], args=[app, trigger_id])
+            # Recurring trigger
+            recurring = details.get('recurring', False)
+            if recurring:
+                scheduler.add_job(
+                    trigger_scheduled_event,
+                    IntervalTrigger(minutes=details['interval']),
+                    args=[app, trigger_id]
+                )
+            else:
+                # One-time trigger with delay
+                scheduler.add_job(
+                    trigger_scheduled_event,
+                    'date',
+                    run_date=datetime.utcnow() + timedelta(minutes=details['interval']),
+                    args=[app, trigger_id]
+                )
     except Exception as e:
         logging.error(f"Error scheduling job: {e}")
 

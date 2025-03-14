@@ -87,7 +87,9 @@ python run.py
 {
   "type": "scheduled",
   "details": {
-    "time": "2025-03-13T10:00:00Z"
+    "time": "2025-03-13T10:00:00Z", 
+     "interval": 30,                   
+    "recurring": true         
   }
 }
 ```
@@ -156,17 +158,7 @@ git push origin main
    - `SQLALCHEMY_DATABASE_URI`: `postgresql://username:password@host:port/database`
 5. Click **Create Web Service** to deploy your application.
 
-## Running Locally with Docker
 
-### Build the Docker Image:
-```bash
-docker build -t event-trigger-platform .
-```
-
-### Run the Docker Container:
-```bash
-docker run -p 5000:5000 event-trigger-platform
-```
 
 ### Access the Application:
 Open your browser and go to `http://localhost:5000`.
