@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 
 # Initialize the scheduler
-scheduler = BackgroundScheduler()
+scheduler = BackgroundScheduler(timezone="UTC")
 
 from apscheduler.triggers.interval import IntervalTrigger
 
