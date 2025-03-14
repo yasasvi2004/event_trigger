@@ -4,6 +4,7 @@ from .models import Trigger, EventLog  # Import Trigger from models.py
 from .scheduler import add_scheduled_trigger  # Import add_scheduled_trigger from scheduler.py
 from datetime import datetime, timedelta
 from flask import Blueprint
+import logging
 
 main = Blueprint('main', __name__)
 @main.route('/triggers', methods=['POST'])
@@ -28,7 +29,7 @@ def create_trigger():
 
 @main.route('/triggers/<int:trigger_id>/trigger', methods=['POST'])
 def trigger_event(trigger_id):
-    trigger = Trigger.query.get_or_404(trigger_id)
+    trigger = db.session.get(Trigger, trigger_id)
     payload = request.json if trigger.type == 'api' else None
 
     event = EventLog(trigger_id=trigger.id, payload=payload, is_test=False)
@@ -39,12 +40,37 @@ def trigger_event(trigger_id):
 
 @main.route('/events', methods=['GET'])
 def get_events():
-    events = EventLog.query.filter(EventLog.triggered_at >= datetime.utcnow() - timedelta(hours=2)).all()
-    return jsonify([{
-        'id': event.id,
-        'trigger_id': event.trigger_id,
-        'triggered_at': event.triggered_at,
-        'payload': event.payload,
-        'is_test': event.is_test
-    } for event in events]), 200
+    aggregate = request.args.get('aggregate', default=None)
+    logging.info(f"Aggregate parameter: {aggregate}")  # Debugging
 
+    if aggregate is not None:
+        # Convert the `aggregate` parameter to a boolean
+        aggregate = aggregate.lower() == 'true'
+
+    if aggregate:
+        # Aggregate event logs by trigger_id
+        events = db.session.query(
+            EventLog.trigger_id,
+            db.func.count(EventLog.id).label('count')
+        ).filter(
+            EventLog.triggered_at >= datetime.utcnow() - timedelta(hours=48)
+        ).group_by(
+            EventLog.trigger_id
+        ).all()
+
+        logging.info(f"Aggregated events: {events}")  # Debugging
+        return jsonify([{
+            'trigger_id': event.trigger_id,
+            'count': event.count
+        } for event in events]), 200
+    else:
+        # Return individual event logs
+        events = EventLog.query.filter(EventLog.triggered_at >= datetime.utcnow() - timedelta(hours=48)).all()
+        logging.info(f"Individual events: {events}")  # Debugging
+        return jsonify([{
+            'id': event.id,
+            'trigger_id': event.trigger_id,
+            'triggered_at': event.triggered_at.isoformat(),
+            'payload': event.payload,
+            'is_test': event.is_test
+        } for event in events]), 200

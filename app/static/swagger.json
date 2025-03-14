@@ -51,11 +51,40 @@
     "/events": {
       "get": {
         "summary": "Get events",
+        "parameters": [
+          {
+            "name": "aggregate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Set to true to get aggregated event logs"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "List of events"
+            "description": "List of events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {"type": "integer"},
+                      "trigger_id": {"type": "integer"},
+                      "triggered_at": {"type": "string", "format": "date-time"},
+                      "payload": {"type": "object"},
+                      "is_test": {"type": "boolean"}
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
-}}
+  }
+}
