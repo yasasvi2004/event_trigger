@@ -5,6 +5,7 @@ import logging
 from dotenv import load_dotenv
 from .extensions import db, scheduler  # Import db and scheduler from extensions.py
 import os
+import sys
 
 # Initialize migrate
 migrate = Migrate()
@@ -24,8 +25,11 @@ def create_app():
     scheduler.init_app(app)
 
     # Configure logging for the scheduler
-    logging.basicConfig(level=logging.DEBUG)
-    logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+    logging.basicConfig(
+        level=logging.DEBUG,  # Set logging level to DEBUG
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[logging.StreamHandler(sys.stdout)]  # Log to stdout
+    )
 
     # Start the scheduler
     try:
