@@ -51,4 +51,6 @@ def trigger_scheduled_event(app, trigger_id):
             logging.info("Event logged successfully.")
     except Exception as e:
         logging.error(f"Error executing scheduled event for trigger_id {trigger_id}: {e}")
+
+
 scheduler.start()
