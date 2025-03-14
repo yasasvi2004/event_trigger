@@ -14,10 +14,8 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "time": { "type": "string", "format": "date-time" },
-                  "interval": { "type": "integer" },
-                  "recurring": { "type": "boolean" }
-
+                  "type": {"type": "string"},
+                  "details": {"type": "object"}
                 }
               }
             }
