@@ -41,13 +41,14 @@ def add_scheduled_trigger(app, trigger_id, details):
         logging.error(f"Error scheduling job: {e}")
 
 def trigger_scheduled_event(app, trigger_id):
+    logging.info(f"trigger_scheduled_event called with trigger_id: {trigger_id}")
     try:
-        # Use the passed Flask app to create an application context
         with app.app_context():
             logging.info(f"Executing scheduled event for trigger ID: {trigger_id}")
             event = EventLog(trigger_id=trigger_id, is_test=False)
             db.session.add(event)
             db.session.commit()
+            logging.info("Event logged successfully.")
     except Exception as e:
         logging.error(f"Error executing scheduled event for trigger_id {trigger_id}: {e}")
 scheduler.start()
