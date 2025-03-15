@@ -24,7 +24,7 @@
 - **Database:** PostgreSQL
 - **Scheduler:** APScheduler
 - **API Documentation:** Swagger UI
-- **Deployment:** Heroku,Render
+- **Deployment:** Replit,Render
 
 ## Qualities
 - **Scalable:** Designed to handle multiple triggers efficiently.
@@ -37,7 +37,7 @@
 ### Prerequisites
 - Python 3.9 or higher
 - PostgreSQL database
-- Docker (optional, for local development)
+
 
 ### Installation
 
@@ -153,7 +153,7 @@ python run.py
 You can explore and test the API using Swagger UI:
 - **URL:** `http://localhost:5000/api/docs`
 
-## Deployment to Heroku with Render Database
+## Deployment to Replit with Render Database
 
 ### Push Your Code to GitHub:
 ```bash
@@ -162,38 +162,41 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
-### Create a New App on Heroku:
-1. Go to Heroku and log in.
-2. Click New > Create new app.
-3. Enter a unique name for your app and select a region.
-4. Click Create app.
-
-## Connect Your GitHub Repository  
-1. On your app’s dashboard, go to the **Deploy** tab.  
-2. Under **Deployment method**, select **GitHub**.  
-3. Connect your GitHub account and search for your repository (e.g., `yasasvi2004/event_trigger`).  
-4. Click **Connect**.  
+### Create a New Repl:
+1. Go to Replit and log in.
+2. Click Create > Import from GitHub.
+3. Enter the URL of your GitHub repository.
+4. Click Import.
 
 ## Set Environment Variables  
-1. Go to the **Settings** tab.  
-2. Click **Reveal Config Vars**.  
-3. Add the following environment variables:  
+1. In your Replit project, click on the Secrets (Environment Variables) tab on the left sidebar.  
+2. Add the following environment variables:  
 
    ```plaintext
    SQLALCHEMY_DATABASE_URI: postgresql://username:password@host:port/database
+Replace username, password, host, port, and database with the credentials for your Render-hosted PostgreSQL database.
 
-## Deploy Your App
-1. On the Deploy tab, scroll down to the Manual deploy section.
-2. Select the branch you want to deploy (e.g., main).
-3. Click Deploy Branch.
-4. Wait for the deployment to complete.
+
+## Install Dependencies
+Replit will automatically detect the requirements.txt file and install the dependencies. If it doesn't, you can manually install them by running:
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Application
+1. In the Replit shell, run:
+```bash
+python run.py
+```
+2. Replit will automatically start the application and provide a public URL for your app.
 
 ### Access the Application:
-1. Once the deployment is complete, click Open App in the top-right corner of your Heroku dashboard.
-2. Your app will be live at: https://your-app-name.herokuapp.com
+1. Once the application is running, Replit will display a public URL (e.g., https://event-trigger.yasasvi2004.repl.co).
+2. You can access the Swagger UI at: https://231138af-3043-43c5-940f-f034089fe172-00-z46sv88g2m19.pike.replit.dev/api/docs
 
 ## Cost Estimation
-Running this application 24x7 for 30 days with 5 queries a day would cost approximately $0 on Heroku's free tier. The Render-hosted PostgreSQL database may have its own pricing, depending on the plan you choose.
+1. Running this application 24x7 for 30 days with 5 queries a day would cost approximately $0 on Replit's free tier. The Render-hosted PostgreSQL database may have its own pricing, depending on the plan you choose.
+2. I have kept my repo public as private repo in replit costs 20$/month
 
 ## Acknowledgments
 - Flask for the web framework.
