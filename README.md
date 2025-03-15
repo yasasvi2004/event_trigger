@@ -17,7 +17,7 @@
 - Swagger UI for easy API testing and exploration.
 
 ### Deployment
-- Ready for deployment to Heroku or any other cloud platform..
+- Ready for deployment to Replit or any other cloud platform..
 
 ## Technologies Used
 - **Backend:** Flask (Python)
@@ -201,7 +201,7 @@ python run.py
 ## Acknowledgments
 - Flask for the web framework.
 - APScheduler for job scheduling.
-- Heroku,Render for deployment hosting.
+- Replit,Render for deployment hosting.
 
 ## Contact
 For questions or feedback, feel free to reach out:
