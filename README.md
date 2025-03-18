@@ -193,6 +193,7 @@ python run.py
 ### Access the Application:
 1. Once the application is running, Replit will display a public URL (e.g., https://event-trigger.yasasvi2004.repl.co).
 2. You can access the Swagger UI at: https://231138af-3043-43c5-940f-f034089fe172-00-z46sv88g2m19.pike.replit.dev/api/docs
+3. Docker hub : yasasvi549/event_trigger_platform-web
 
 ## Cost Estimation
 1. Running this application 24x7 for 30 days with 5 queries a day would cost approximately $0 on Replit's free tier. The Render-hosted PostgreSQL database may have its own pricing, depending on the plan you choose.
