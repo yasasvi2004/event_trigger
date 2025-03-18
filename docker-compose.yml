@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env  # Load environment variables from .env file
+    environment:
+      - DATABASE_URL=${DATABASE_URL}  # Use DATABASE_URL from .env
+    depends_on:
+      - db
+    restart: always  # Ensures the container restarts if it fails
+
+  db:
+    image: postgres:13
+    env_file:
+      - .env  # Load environment variables from .env file
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}  # Use POSTGRES_USER from .env
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}  # Use POSTGRES_PASSWORD from .env
+      - POSTGRES_DB=${POSTGRES_DB}  # Use POSTGRES_DB from .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    # ports:
+    #   - "5432:5432"  # Optional, for external access
+
+volumes:
+  postgres_data:
