@@ -1,0 +1,24 @@
+modules = ["python-3.12"]
+run = "gunicorn run:app"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "gunicorn run:app --bind 0.0.0.0:8080"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 40489942
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "gunicorn run:app --bind 0.0.0.0:8080"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
