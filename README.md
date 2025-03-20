@@ -196,8 +196,9 @@ python run.py
 3. Docker hub : yasasvi549/event_trigger_platform-web
 
 ## Cost Estimation
-1. Running this application 24x7 for 30 days with 5 queries a day would cost approximately $0 on Replit's free tier. The Render-hosted PostgreSQL database may have its own pricing, depending on the plan you choose.
-2. I have kept my repo public as private repo in replit costs 20$/month
+1. Running this application 24x7 for 30 days with 5 queries a day may exceed the limits of Replit's free tier, which has a specified minimum development time. To avoid interruptions, consider upgrading to Replit Core for unlimited access(240 dollars/year).
+2. The Render-hosted PostgreSQL database may have its own pricing, depending on the plan you choose.
+3. I have kept my repo public as private repo in replit costs 20$/month
 
 ## Acknowledgments
 - Flask for the web framework.
