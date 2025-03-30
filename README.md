@@ -183,6 +183,15 @@ Replit will automatically detect the requirements.txt file and install the depen
 pip install -r requirements.txt
 ```
 
+## Docker Deployment (Self-Contained)
+
+1. **Build the image**:
+   ```bash
+   docker-compose build
+2. **Run the container**:
+   ```bash
+   docker-compose up
+
 ### Run the Application
 1. In the Replit shell, run:
 ```bash
