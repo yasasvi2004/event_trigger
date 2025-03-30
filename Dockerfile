@@ -1,9 +1,10 @@
 # Use an official Python runtime as the base image
 FROM python:3.9-slim
 
-# Install system dependencies for Postgres client
+
+# Install system dependencies
 RUN apt-get update && \
-    apt-get install -y libpq-dev gcc && \
+    apt-get install -y postgresql postgresql-contrib libpq-dev gcc && \
     rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
